@@ -13,18 +13,9 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Document(collection = "enrollmentsDetail")
 public class EnrollmentDetail {
 
-    @Id
-    @EqualsAndHashCode.Include
-    private String id;
-
-    @Field
     private Enrollment enrollment;
-
-    @Field
     private Course course;
 
 }
