@@ -1,8 +1,8 @@
 package com.example.trabajofinal.controller;
 
-import com.example.trabajofinal.dto.CourseDto;
-import com.example.trabajofinal.model.Course;
-import com.example.trabajofinal.service.ICourseService;
+import com.example.trabajofinal.dto.EnrollmentDto;
+import com.example.trabajofinal.model.Enrollment;
+import com.example.trabajofinal.service.IEnrollmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,19 +12,20 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import java.net.URI;
 
-
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/enrollments")
 @RequiredArgsConstructor
-public class CourseController {
-    private final ICourseService service;
+public class EnrollmentController {
+
+    private final IEnrollmentService service;
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<CourseDto>>> findAll() {
-        Flux<CourseDto> fx = service.findAll().map(c -> modelMapper.map(c, CourseDto.class));
+    public Mono<ResponseEntity<Flux<EnrollmentDto>>> findAll() {
+        Flux<EnrollmentDto> fx = service.findAll().map(c -> modelMapper.map(c, EnrollmentDto.class));
 
         return Mono.just(ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -34,9 +35,9 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<CourseDto>> findById(@PathVariable("id") String id) {
+    public Mono<ResponseEntity<EnrollmentDto>> findById(@PathVariable("id") String id) {
         return service.findById(id)
-                .map(c -> modelMapper.map(c, CourseDto.class))
+                .map(c -> modelMapper.map(c, EnrollmentDto.class))
                 .map(e -> ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(e)
@@ -45,9 +46,9 @@ public class CourseController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<CourseDto>> save(@Valid @RequestBody CourseDto dto, final ServerHttpRequest req) {
-        return service.save(modelMapper.map(dto,  Course.class))
-                .map(e -> modelMapper.map(e,  CourseDto.class))
+    public Mono<ResponseEntity<EnrollmentDto>> save(@Valid @RequestBody EnrollmentDto dto, final ServerHttpRequest req) {
+        return service.save(modelMapper.map(dto,  Enrollment.class))
+                .map(e -> modelMapper.map(e,  EnrollmentDto.class))
                 .map(e -> ResponseEntity.created(
                                         URI.create(req.getURI().toString().concat("/").concat(e.getId()))
                                 )
@@ -58,14 +59,14 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<CourseDto>> update(@Valid @PathVariable("id") String id, @RequestBody CourseDto dto) {
+    public Mono<ResponseEntity<EnrollmentDto>> update(@Valid @PathVariable("id") String id, @RequestBody EnrollmentDto dto) {
         return Mono.just(dto)
                 .map(e -> {
                     e.setId(id);
                     return e;
                 })
-                .flatMap(e -> service.update(id, modelMapper.map(dto,  Course.class)))
-                .map(e -> modelMapper.map(e,  CourseDto.class))
+                .flatMap(e -> service.update(id, modelMapper.map(dto,  Enrollment.class)))
+                .map(e -> modelMapper.map(e,  EnrollmentDto.class))
                 .map(e -> ResponseEntity
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)

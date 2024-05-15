@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,12 +20,11 @@ public class EnrollmentDto {
     private String id;
 
     @NotNull
-    private LocalDateTime enrollmentDate;
+    private LocalDate enrollmentDate;
 
     @NotNull
     private Student student;
 
-    @NotNull
-    private List<EnrollmentDetailDto> enrollments;
+
 }
 

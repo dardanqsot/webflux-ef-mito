@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -23,11 +23,11 @@ public class Enrollment {
     private String id;
 
     @Field
-    private LocalDateTime enrollmentDate;
+    private LocalDate enrollmentDate;
 
     @Field
     private Student student;
 
     @Field
-    private List<EnrollmentDetail> enrollmentDetails;
+    private List<Course> courses;
 }
