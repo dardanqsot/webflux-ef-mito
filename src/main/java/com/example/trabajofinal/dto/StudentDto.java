@@ -23,5 +23,6 @@ public class StudentDto {
     @NotNull
     private String dni;
 
+    @NotNull
     private Integer age;
 }
