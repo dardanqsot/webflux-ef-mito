@@ -25,6 +25,7 @@ public class EnrollmentDto {
     @NotNull
     private Student student;
 
+    private List<CourseDto> courses;
 
 }
 

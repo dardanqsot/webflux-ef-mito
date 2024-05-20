@@ -33,7 +33,6 @@ public class StudentController {
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
     @GetMapping("/{id}")
     public Mono<ResponseEntity<StudentDto>> findById(@PathVariable("id") String id) {
         return service.findById(id)
