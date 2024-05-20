@@ -34,6 +34,15 @@ public class StudentHandler {
                 .body(service.findAll().map(this::convertToDto), StudentDto.class);
     }
 
+    public Mono<ServerResponse> findAllOrderedByAge(ServerRequest req) {
+        String order = req.queryParam("order").orElse("asc");
+
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(service.findAllOrderedByAge(order).map(this::convertToDto), StudentDto.class);
+    }
+
     public Mono<ServerResponse> findById(ServerRequest req) {
         String id = req.pathVariable("id");
 

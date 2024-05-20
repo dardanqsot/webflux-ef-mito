@@ -33,6 +33,18 @@ public class StudentController {
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/ordered-by-age")
+    public Mono<ResponseEntity<Flux<StudentDto>>> findAllOrderedByAge(@RequestParam(defaultValue = "asc") String order) {
+        Flux<StudentDto> fx = service.findAllOrderedByAge(order).map(s -> modelMapper.map(s, StudentDto.class));
+
+        return Mono.just(ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fx)
+                )
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/{id}")
     public Mono<ResponseEntity<StudentDto>> findById(@PathVariable("id") String id) {
         return service.findById(id)

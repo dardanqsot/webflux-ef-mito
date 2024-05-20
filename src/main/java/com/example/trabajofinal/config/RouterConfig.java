@@ -28,6 +28,7 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routesStudents(StudentHandler handler){
         return route(GET("/v2/students"), handler::findAll)
+                .andRoute(GET("/v2/students/ordered-by-age"), handler::findAllOrderedByAge)
                 .andRoute(GET("/v2/students/{id}"), handler::findById)
                 .andRoute(POST("/v2/students"), handler::create)
                 .andRoute(PUT("/v2/students/{id}"), handler::update)

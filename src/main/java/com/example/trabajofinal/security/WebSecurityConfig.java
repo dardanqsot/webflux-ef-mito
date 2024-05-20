@@ -27,7 +27,6 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        //Desde Spring Boot 3.1+
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
@@ -36,7 +35,6 @@ public class WebSecurityConfig {
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange(req -> {
                     req.pathMatchers("/login").permitAll();
-                    //req.pathMatchers("/dishes/**").permitAll();
                     req.anyExchange().authenticated();
                 })
                 .build();
